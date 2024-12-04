@@ -134,7 +134,7 @@ a = 1
 def fun(a):
     a = 2
 fun(a)
-print a  # 1
+print(a)  # 1
 ```
 
 ```python
@@ -142,7 +142,7 @@ a = []
 def fun(a):
     a.append(1)
 fun(a)
-print a  # [1]
+print(a) # [1]
 ```
 
 所有的变量都可以理解是内存中一个对象的“引用”，或者，也可以看似c中void*的感觉。
@@ -152,12 +152,12 @@ print a  # [1]
 ```python
 a = 1
 def fun(a):
-    print "func_in",id(a)   # func_in 41322472
+    print("func_in",id(a))   # func_in 41322472
     a = 2
-    print "re-point",id(a), id(2)   # re-point 41322448 41322448
-print "func_out",id(a), id(1)  # func_out 41322472 41322472
+    print("re-point",id(a), id(2))   # re-point 41322448 41322448
+print("func_out",id(a), id(1))  # func_out 41322472 41322472
 fun(a)
-print a  # 1
+print(a) # 1
 ```
 
 注：具体的值在不同电脑上运行时可能不同。
@@ -169,11 +169,11 @@ print a  # 1
 ```python
 a = []
 def fun(a):
-    print "func_in",id(a)  # func_in 53629256
+    print("func_in",id(a))  # func_in 53629256
     a.append(1)
-print "func_out",id(a)     # func_out 53629256
+print("func_out",id(a))     # func_out 53629256
 fun(a)
-print a  # [1]
+print(a)  # [1]
 ```
 
 这里记住的是类型是属于对象的，而不是变量。而对象有两种,“可更改”（mutable）与“不可更改”（immutable）对象。在python中，strings, tuples, 和numbers是不可更改的对象，而 list, dict, set 等则是可以修改的对象。(这就是这个问题的重点)
@@ -192,19 +192,19 @@ Python其实有3个方法,即静态方法(staticmethod),类方法(classmethod)�
 
 ```python
 def foo(x):
-    print "executing foo(%s)"%(x)
+    print( "executing foo(%s)"%(x))
 
 class A(object):
     def foo(self,x):
-        print "executing foo(%s,%s)"%(self,x)
+        print( "executing foo(%s,%s)"%(self,x))
 
     @classmethod
     def class_foo(cls,x):
-        print "executing class_foo(%s,%s)"%(cls,x)
+        print( "executing class_foo(%s,%s)"%(cls,x))
 
     @staticmethod
     def static_foo(x):
-        print "executing static_foo(%s)"%x
+        print( "executing static_foo(%s)"%x)
 
 a=A()
 
@@ -240,12 +240,12 @@ class Test(object):
         Test.num_of_instance += 1  
   
 if __name__ == '__main__':  
-    print Test.num_of_instance   # 0
+    print( Test.num_of_instance)   # 0
     t1 = Test('jack')  
-    print Test.num_of_instance   # 1
+    print( Test.num_of_instance)   # 1
     t2 = Test('lucy')  
-    print t1.name , t1.num_of_instance  # jack 2
-    print t2.name , t2.num_of_instance  # lucy 2
+    print( t1.name , t1.num_of_instance)  # jack 2
+    print( t2.name , t2.num_of_instance)  # lucy 2
 ```
 
 > 补充的例子
@@ -257,9 +257,9 @@ class Person:
 p1=Person()
 p2=Person()
 p1.name="bbb"
-print p1.name  # bbb
-print p2.name  # aaa
-print Person.name  # aaa
+print( p1.name)  # bbb
+print( p2.name)  # aaa
+print( Person.name)  # aaa
 ```
 
 这里`p1.name="bbb"`是实例调用了类变量,这其实和上面第一个问题一样,就是函数传参的问题,`p1.name`一开始是指向的类变量`name="aaa"`,但是在实例的作用域里把类变量的引用改变了,就变成了一个实例变量,self.name不再引用Person的类变量name了.
@@ -273,9 +273,9 @@ class Person:
 p1=Person()
 p2=Person()
 p1.name.append(1)
-print p1.name  # [1]
-print p2.name  # [1]
-print Person.name  # [1]
+print( p1.name ) # [1]
+print( p2.name ) # [1]
+print( Person.name)  # [1]
 ```
 
 参考:http://stackoverflow.com/questions/6470428/catch-multiple-exceptions-in-one-line-except-block
@@ -290,8 +290,8 @@ print Person.name  # [1]
 a = [1,2,3]
 b = {'a':1,'b':2,'c':3}
 c = True
-print type(a),type(b),type(c) # <type 'list'> <type 'dict'> <type 'bool'>
-print isinstance(a,list)  # True
+print( type(a),type(b),type(c) )# <type 'list'> <type 'dict'> <type 'bool'>
+print( isinstance(a,list) ) # True
 ```
 
 
@@ -385,7 +385,7 @@ http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format
 ```python
 >>> def print_everything(*args):
         for count, thing in enumerate(args):
-...         print '{0}. {1}'.format(count, thing)
+...         print( '{0}. {1}'.format(count, thing))
 ...
 >>> print_everything('apple', 'banana', 'cabbage')
 0. apple
@@ -398,7 +398,7 @@ http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format
 ```python
 >>> def table_things(**kwargs):
 ...     for name, value in kwargs.items():
-...         print '{0} = {1}'.format(name, value)
+...         print( '{0} = {1}'.format(name, value))
 ...
 >>> table_things(apple = 'fruit', cabbage = 'vegetable')
 cabbage = vegetable
@@ -417,7 +417,7 @@ def table_things(titlestring, **kwargs)
 
 ```python
 >>> def print_three_things(a, b, c):
-...     print 'a = {0}, b = {1}, c = {2}'.format(a,b,c)
+...     print( 'a = {0}, b = {1}, c = {2}'.format(a,b,c))
 ...
 >>> mylist = ['aardvark', 'baboon', 'cat']
 >>> print_three_things(*mylist)
@@ -483,13 +483,13 @@ http://stackoverflow.com/questions/3394835/args-and-kwargs
 ```python
 class A():
     def foo1(self):
-        print "A"
+        print( "A")
 class B(A):
     def foo2(self):
         pass
 class C(A):
     def foo1(self):
-        print "C"
+        print( "C")
 class D(B, C):
     pass
 
@@ -651,7 +651,7 @@ filter 函数的功能相当于过滤器。调用一个布尔函数`bool_func`�
 ```python
 >>>a = [1,2,3,4,5,6,7]
 >>>b = filter(lambda x: x > 5, a)
->>>print b
+>>>print( b)
 >>>[6,7]
 ```
 
@@ -685,10 +685,10 @@ d = copy.deepcopy(a)  #对象拷贝，深拷贝
 a.append(5)  #修改对象a
 a[4].append('c')  #修改对象a中的['a', 'b']数组对象
 
-print 'a = ', a
-print 'b = ', b
-print 'c = ', c
-print 'd = ', d
+print( 'a = ', a)
+print( 'b = ', b)
+print( 'c = ', c)
+print( 'd = ', d)
 
 输出结果：
 a =  [1, 2, 3, 4, ['a', 'b', 'c'], 5]
@@ -1315,7 +1315,7 @@ list(set(l))
 ```python
 l1 = ['b','c','d','b','c','a','a']
 l2 = {}.fromkeys(l1).keys()
-print l2
+print( l2)
 ```
 
 用字典并保持顺序
@@ -1324,7 +1324,7 @@ print l2
 l1 = ['b','c','d','b','c','a','a']
 l2 = list(set(l1))
 l2.sort(key=l1.index)
-print l2
+print( l2)
 ```
 
 列表推导式
@@ -1464,7 +1464,7 @@ def merge_sortedlist(a,b):
     while b:
         c.append(b.pop(0))
     return c
-print merge_sortedlist(a,b)
+print( merge_sortedlist(a,b))
     
 ```
 
@@ -1482,11 +1482,11 @@ b = [4,5,7,9,1,5]
 
 for i in range(1,min(len(a),len(b))):
     if i==1 and (a[-1] != b[-1]):
-        print "No"
+        print( "No")
         break
     else:
         if a[-i] != b[-i]:
-            print "交叉节点：",a[-i+1]
+            print( "交叉节点：",a[-i+1])
             break
         else:
             pass
@@ -1583,7 +1583,7 @@ def binary_search(list, item):
             return mid
     return None
 mylist = [1,3,5,7,9]
-print binary_search(mylist, 3)
+print( binary_search(mylist, 3))
 
 ```
 
@@ -1603,7 +1603,7 @@ def quicksort(list):
         finallylist = quicksort(lessbeforemidpivot)+[midpivot]+quicksort(biggerafterpivot)
         return finallylist
 
-print quicksort([2,4,6,7,1,2,5])
+print( quicksort([2,4,6,7,1,2,5]))
 ```
 
 
@@ -1678,7 +1678,7 @@ def lookup(root):
 def deep(root):
     if not root:
         return
-    print root.data
+    print( root.data)
     deep(root.left)
     deep(root.right)
 
@@ -1798,7 +1798,7 @@ def rev(link):
 
 root = rev(link)
 while root:
-    print root.data
+    print (root.data)
     root = root.next
 ```
 
